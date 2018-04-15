@@ -1,0 +1,14 @@
+language: scala
+scala:
+  - 2.12.5
+jdk:
+  - oraclejdk8
+script:
+  - sbt clean coverage test
+after_success:
+  - sbt coverageReport
+  - sbt coverageAggregate
+  - echo "CI_COMMIT $CI_COMMIT"
+  - echo "TRAVIS_PULL_REQUEST_SHA $TRAVIS_PULL_REQUEST_SHA"
+  - echo "TRAVIS_COMMIT $TRAVIS_COMMIT"
+  - sbt codacyCoverage

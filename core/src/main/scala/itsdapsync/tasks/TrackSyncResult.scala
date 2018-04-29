@@ -1,18 +1,19 @@
 package itsdapsync.tasks
 
-case class TrackSyncResult(persisentId: String,
-                           deleteResult: Option[TrackSyncResult.Delete],
-                           writeResult: Option[TrackSyncResult.Write])
+import itsdapsync.syncdb.SyncTrack
+
+sealed trait TrackSyncResult {
+  def persisentId: String
+  def syncTrack: Option[SyncTrack]
+}
 
 object TrackSyncResult {
 
-  sealed trait Delete
-  case class DeleteSuccess(task: TrackSyncTask.Delete) extends Delete
-  case class DeleteFailure(task: TrackSyncTask.Delete, exception: Throwable)
-      extends Delete
+  case class Success(persisentId: String, syncTrack: Option[SyncTrack])
+      extends TrackSyncResult
 
-  sealed trait Write
-  case class WriteSuccess(task: TrackSyncTask.Write) extends Write
-  case class WriteFailure(task: TrackSyncTask.Write, exception: Throwable)
-      extends Write
+  case class Failure(persisentId: String,
+                     syncTrack: Option[SyncTrack],
+                     error: Throwable)
+      extends TrackSyncResult
 }

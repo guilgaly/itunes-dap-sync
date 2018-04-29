@@ -5,40 +5,41 @@ import java.nio.file.Path
 import itsdapsync.syncdb.SyncTrack
 import itsdapsync.ituneslib.ItunesTrack
 
-case class TrackSyncTask(persisentId: String,
-                         deleteTask: Option[TrackSyncTask.Delete],
-                         writeTask: Option[TrackSyncTask.Write])
+sealed trait TrackSyncTask {
+  def persisentId: String
+}
 
 object TrackSyncTask {
 
-  def delete(oldSyncTrack: SyncTrack): TrackSyncTask =
-    TrackSyncTask(oldSyncTrack.persistentID, Some(Delete(oldSyncTrack)), None)
+  case class Create(
+      itunesTrack: ItunesTrack,
+      newSyncTrack: SyncTrack,
+      tempPath: Path
+  ) extends TrackSyncTask {
+    require(itunesTrack.persistentID == newSyncTrack.persistentID)
 
-  def create(itunesTrack: ItunesTrack,
-             newSyncTrack: SyncTrack,
-             tempPath: Path): TrackSyncTask = {
-    TrackSyncTask(itunesTrack.persistentID,
-                  None,
-                  Some(Write(itunesTrack, newSyncTrack, tempPath)))
+    override def persisentId: String = itunesTrack.persistentID
   }
 
-  def replace(oldSyncTrack: SyncTrack,
-              itunesTrack: ItunesTrack,
-              newSyncTrack: SyncTrack,
-              tempPath: Path): TrackSyncTask = {
+  case class Keep(oldSyncTrack: SyncTrack) extends TrackSyncTask {
+    override def persisentId: String = oldSyncTrack.persistentID
+  }
+
+  case class Replace(
+      oldSyncTrack: SyncTrack,
+      itunesTrack: ItunesTrack,
+      newSyncTrack: SyncTrack,
+      tempPath: Path
+  ) extends TrackSyncTask {
     require(itunesTrack.persistentID == oldSyncTrack.persistentID)
     require(itunesTrack.persistentID == newSyncTrack.persistentID)
-    TrackSyncTask(itunesTrack.persistentID,
-                  Some(Delete(oldSyncTrack)),
-                  Some(Write(itunesTrack, newSyncTrack, tempPath)))
+
+    override def persisentId: String = itunesTrack.persistentID
+
+    def asCreateTask: Create = Create(itunesTrack, newSyncTrack, tempPath)
   }
 
-  def doNothing(persisentId: String): TrackSyncTask =
-    TrackSyncTask(persisentId, None, None)
-
-  case class Delete(oldSyncTrack: SyncTrack)
-
-  case class Write(itunesTrack: ItunesTrack,
-                   newSyncTrack: SyncTrack,
-                   tempPath: Path)
+  case class Delete(oldSyncTrack: SyncTrack) extends TrackSyncTask {
+    override def persisentId: String = oldSyncTrack.persistentID
+  }
 }

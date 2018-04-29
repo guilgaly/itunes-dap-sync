@@ -1,6 +1,6 @@
 package itsdapsync.tasks
 
-import itsdapsync.Config
+import itsdapsync.SyncConfig
 import itsdapsync.ituneslib.{ItunesMusicLibrary, ItunesTrack}
 import itsdapsync.syncdb.{SyncDb, SyncTrack}
 import itsdapsync.utils.FileUtils.normalizeFileName
@@ -13,7 +13,7 @@ object SyncTask {
 
   def newTask(itunesLibrary: ItunesMusicLibrary,
               oldSyncDb: SyncDb,
-              config: Config): SyncTask = {
+              config: SyncConfig): SyncTask = {
 
     def resolveTargetPath(track: ItunesTrack) = {
       def genreDir = track.genre.getOrElse("Unknown Genre")
@@ -49,7 +49,7 @@ object SyncTask {
       val itunesIds = itunesLibrary.tracks.map(_.persistentID).toSet
       oldSyncDb.tracks.collect {
         case syncTrack if !itunesIds(syncTrack.persistentID) =>
-          TrackSyncTask.delete(syncTrack)
+          TrackSyncTask.Delete(syncTrack)
       }
     }
 
@@ -61,11 +61,11 @@ object SyncTask {
         oldSyncDb.tracksByPersistentID.get(track.persistentID) match {
           case Some(oldSyncTrack) =>
             if (track.dateModified.isAfter(oldSyncDb.lastSync.start))
-              TrackSyncTask.replace(oldSyncTrack, track, newSyncTrack, tempPath)
+              TrackSyncTask.Replace(oldSyncTrack, track, newSyncTrack, tempPath)
             else
-              TrackSyncTask.doNothing(track.persistentID)
+              TrackSyncTask.Keep(oldSyncTrack)
           case None =>
-            TrackSyncTask.create(track, newSyncTrack, tempPath)
+            TrackSyncTask.Create(track, newSyncTrack, tempPath)
         }
       }
     }

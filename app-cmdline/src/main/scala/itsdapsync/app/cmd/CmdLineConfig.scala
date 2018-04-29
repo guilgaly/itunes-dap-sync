@@ -3,7 +3,7 @@ package itsdapsync.app.cmd
 import java.io.File
 import java.nio.file.{Path, Paths}
 
-import itsdapsync.ConfigInput
+import itsdapsync.SyncConfig
 import scopt.OptionParser
 
 object CmdLineConfig {
@@ -40,7 +40,7 @@ object CmdLineConfig {
 
 /** The configuration used for running the program. */
 case class CmdLineConfig(itunesDirectory: Path, targetDirectory: Path)
-    extends ConfigInput {
+    extends SyncConfig.Input {
 
   /** No-args constructor used only for the scopt parser. */
   private def this() = this(Paths.get("."), Paths.get("."))

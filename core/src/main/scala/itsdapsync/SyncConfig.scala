@@ -4,11 +4,6 @@ import java.nio.file.{Files, Path}
 
 import scala.util.Try
 
-trait ConfigInput {
-  def itunesDirectory: Path
-  def targetDirectory: Path
-}
-
 /**
  * @param itunesDirectory iTunes' home directory, where iTunes stores media
  *                        files and metadata
@@ -22,19 +17,19 @@ trait ConfigInput {
  * @param targetSyncFile The path to the file listing already sync'ed files on
  *                       the target.
  */
-case class Config(itunesDirectory: Path,
-                  targetDirectory: Path,
-                  tempDirectory: Path,
-                  itunesBinaryLibrary: Path,
-                  itunesXmlLibrary: Path,
-                  targetSyncFile: Path) {
+case class SyncConfig(itunesDirectory: Path,
+                      targetDirectory: Path,
+                      tempDirectory: Path,
+                      itunesBinaryLibrary: Path,
+                      itunesXmlLibrary: Path,
+                      targetSyncFile: Path) {
 
   override def toString: String =
     s"${getClass.getSimpleName}($itunesDirectory, $targetDirectory, $tempDirectory)"
 }
 
-object Config {
-  def apply(config: ConfigInput): Try[Config] = Try {
+object SyncConfig {
+  def apply(config: Input): Try[SyncConfig] = Try {
     val tempDirectory: Path =
       Files.createTempDirectory("itunes-dap-sync")
     val itunesBinaryLibrary: Path =
@@ -43,15 +38,19 @@ object Config {
     val itunesXmlLibrary: Path =
       config.itunesDirectory.resolve("iTunes Music Library.xml")
     require(Files.isRegularFile(itunesXmlLibrary)) // TODO
-    val targetSyncFile: Path =
-      config.targetDirectory.resolve("itsdapsync.json")
+    val targetSyncFile: Path = config.targetDirectory.resolve("itsdapsync.json")
     // TODO checks for targetSyncFile
 
-    Config(config.itunesDirectory,
-           config.targetDirectory,
-           tempDirectory,
-           itunesBinaryLibrary,
-           itunesXmlLibrary,
-           targetSyncFile)
+    SyncConfig(config.itunesDirectory,
+               config.targetDirectory,
+               tempDirectory,
+               itunesBinaryLibrary,
+               itunesXmlLibrary,
+               targetSyncFile)
+  }
+
+  trait Input {
+    def itunesDirectory: Path
+    def targetDirectory: Path
   }
 }

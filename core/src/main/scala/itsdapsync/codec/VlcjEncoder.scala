@@ -80,9 +80,7 @@ class VlcjEncoder extends Encoder {
   }
 
   override def close(): Unit = {
-    if (playerFactory != null) {
-      println("releasing component")
-      playerFactory.release()
-    }
+    println("releasing component")
+    playerFactory.release()
   }
 }

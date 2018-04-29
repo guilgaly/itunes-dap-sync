@@ -38,6 +38,9 @@ object Deps {
   /** JSON. */
   val upickle = "com.lihaoyi" %% "upickle" % "0.6.5"
 
+  /** Enumeratiopns. */
+  val enumeratum = "com.beachape" %% "enumeratum" % "1.5.13"
+
   /** Tests. */
   val scalatest = "org.scalatest" %% "scalatest" % "3.0.5"
 

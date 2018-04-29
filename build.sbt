@@ -84,6 +84,7 @@ lazy val common = (project in file("common"))
       Deps.logging.slf4jApi,
       Deps.logging.slf4jSimple,
       Deps.upickle,
+      Deps.enumeratum,
       Deps.scalatest % "test",
     )
   )

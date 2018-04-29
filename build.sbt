@@ -1,22 +1,11 @@
-import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport.ignoreErrors
-import sbt.Keys.organization
-
 def moduleName(name: String) = s"itunes-dap-sync-$name"
-
-val akkaVersion = "2.5.11"
-val slf4jVersion = "1.7.25"
 
 lazy val commonSettings = Seq(
   organization := "guilgaly",
   version := "0.0.1-SNAPSHOT",
-  scalaVersion := "2.12.5",
-  scalafmtVersion := "1.4.0",
+  scalaVersion := Deps.scalaVersion,
   scalafmtOnCompile := true,
-  ignoreErrors in scalafmt := false,
-  resolvers ++= Seq(
-    Resolver.bintrayRepo("ijabz", "maven"),
-    Resolver.bintrayRepo("guilgaly", "maven")
-  ),
+  resolvers ++= Deps.customResolvers,
 )
 
 lazy val root = (project in file("."))
@@ -31,8 +20,7 @@ lazy val cmdLineApp = (project in file("app-cmdline"))
     name := moduleName("cmdLineApp"),
     commonSettings,
     libraryDependencies ++= Seq(
-      // Parsing command-line args
-      "com.github.scopt" %% "scopt" % "3.7.0",
+      Deps.scopt,
     )
   )
 
@@ -45,7 +33,7 @@ lazy val guiApp = (project in file("app-gui"))
     name := moduleName("guiApp"),
     commonSettings,
     libraryDependencies ++= Seq(
-    )
+      )
   )
 
 lazy val core = (project in file("core"))
@@ -57,11 +45,9 @@ lazy val core = (project in file("core"))
     name := moduleName("core"),
     commonSettings,
     libraryDependencies ++= Seq(
-      // Audio files tags
-      "net.jthink" % "jaudiotagger" % "2.2.5",
-      // Audio files manipulation (transcoding...)
-      "uk.co.caprica" % "vlcj" % "3.10.1",
-      "it.sauronsoftware" % "jave" % "1.0.2",
+      Deps.jaudiotagger,
+      Deps.vlcj,
+      Deps.jave,
     )
   )
 
@@ -73,8 +59,7 @@ lazy val itunesLib = (project in file("ituneslib"))
     name := moduleName("itunesLib"),
     commonSettings,
     libraryDependencies ++= Seq(
-      // Plist parser
-      "com.googlecode.plist" % "dd-plist" % "1.20",
+      Deps.ddPlist,
     )
   )
 
@@ -87,7 +72,7 @@ lazy val experiments = (project in file("experiments"))
     name := moduleName("experiments"),
     commonSettings,
     libraryDependencies ++= Seq(
-    )
+      )
   )
 
 lazy val common = (project in file("common"))
@@ -95,14 +80,11 @@ lazy val common = (project in file("common"))
     name := moduleName("common"),
     commonSettings,
     libraryDependencies ++= Seq(
-        // Logging
-        "org.log4s" %% "log4s" % "1.6.1",
-        "org.slf4j" % "slf4j-api" % slf4jVersion,
-        "org.slf4j" % "slf4j-simple" % slf4jVersion, // logging to System.err for now
-        // JSON
-        "com.lihaoyi" %% "upickle" % "0.6.5",
-        // Tests
-        "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+      Deps.logging.log4s,
+      Deps.logging.slf4jApi,
+      Deps.logging.slf4jSimple,
+      Deps.upickle,
+      Deps.scalatest % "test",
     )
   )
 

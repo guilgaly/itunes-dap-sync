@@ -1,5 +1,14 @@
+sudo: required
 language: scala
 jdk:
   - oraclejdk8
+
+cache:
+  directories:
+  - $HOME/.coursier
+
 script:
-  - sbt clean test
+  - curl -L -o ~/bin/mill https://github.com/lihaoyi/mill/releases/download/0.2.0/0.2.0 && chmod +x ~/bin/mill
+  - export PATH=~/bin/mill:$PATH
+  - git clean -xdf
+  - mill _.test

@@ -1,0 +1,33 @@
+import mill.scalalib._
+
+/** Command-line args parsing. */
+val scopt = ivy"com.github.scopt::scopt:3.7.0"
+
+/** Audio files tags.*/
+val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"
+
+/** Audio files manipulation (transcoding...) with VLC. */
+val vlcj = ivy"uk.co.caprica:vlcj:3.10.1"
+
+/** Audio files manipulation (transcoding...) with ffmpeg. */
+val jave = ivy"it.sauronsoftware:jave:1.0.2"
+
+/** Plist parser. */
+val ddPlist = ivy"com.googlecode.plist:dd-plist:1.20"
+
+/** Logging. */
+object logging {
+  val log4s = ivy"org.log4s::log4s:1.6.1"
+  val slf4jApi = ivy"org.slf4j:slf4j-api:1.7.25"
+  // logging to System.err for now
+  val slf4jSimple = ivy"org.slf4j:slf4j-simple:1.7.25"
+}
+
+/** JSON. */
+val upickle = ivy"com.lihaoyi::upickle:0.6.5"
+
+/** Enumeratiopns. */
+val enumeratum = ivy"com.beachape::enumeratum:1.5.13"
+
+/** Tests. */
+val scalatest = ivy"org.scalatest::scalatest:3.0.5"

@@ -53,7 +53,7 @@ object common extends itsDapSyncModule {
     dependencies.logging.log4s,
     dependencies.logging.slf4jApi,
     dependencies.logging.slf4jSimple,
-    dependencies.upickle,
+    dependencies.playJson,
     dependencies.enumeratum,
   )
 }

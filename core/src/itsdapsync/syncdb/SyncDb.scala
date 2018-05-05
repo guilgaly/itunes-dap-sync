@@ -3,7 +3,7 @@ package itsdapsync.syncdb
 import java.time.Instant
 import java.util.UUID
 
-import itsdapsync.json.CustomPickler._
+import play.api.libs.json.{Format, Json, OFormat}
 
 import scala.collection.immutable.Seq
 
@@ -18,15 +18,15 @@ object SyncDb {
     Seq.empty
   )
 
-  implicit val rw: RW[SyncDb] = macroRW[SyncDb]
+  implicit val format: OFormat[SyncDb] = Json.format
 }
 
 case class LastSync(start: Instant, end: Instant)
 object LastSync {
-  implicit val rw: RW[LastSync] = macroRW[LastSync]
+  implicit val format: OFormat[LastSync] = Json.format
 }
 
 case class SyncTrack(persistentID: String, path: String)
 object SyncTrack {
-  implicit val rw: RW[SyncTrack] = macroRW[SyncTrack]
+  implicit val format: OFormat[SyncTrack] = Json.format
 }

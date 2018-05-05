@@ -1,22 +1,21 @@
 package itsdapsync.syncdb
 
-import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path}
 
-import itsdapsync.json.CustomPickler
+import play.api.libs.json.Json
 
 object SyncDbEngine {
 
   def readSyncDb(path: Path): SyncDb =
     if (Files.exists(path)) {
       val bytes = Files.readAllBytes(path)
-      CustomPickler.read[SyncDb](bytes)
+      Json.parse(bytes).as[SyncDb]
     } else {
       SyncDb.empty
     }
 
   def writeSyncDb(syncDb: SyncDb, path: Path): Unit = {
-    val json = CustomPickler.write(syncDb).getBytes(StandardCharsets.UTF_8)
+    val json = Json.toBytes(Json.toJsObject(syncDb))
     Files.write(path, json)
   }
 }

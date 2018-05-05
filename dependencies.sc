@@ -24,7 +24,7 @@ object logging {
 }
 
 /** JSON. */
-val upickle = ivy"com.lihaoyi::upickle:0.6.5"
+val playJson = ivy"com.typesafe.play::play-json:2.6.7"
 
 /** Enumeratiopns. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"

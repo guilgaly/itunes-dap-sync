@@ -14,7 +14,7 @@ object Platform extends Enum[Platform] {
 
   override def values: IndexedSeq[Platform] = findValues
 
-  def current: Platform = {
+  lazy val current: Platform = {
     val osName = System.getProperty("os.name")
 
     if (osName.startsWith("Mac"))

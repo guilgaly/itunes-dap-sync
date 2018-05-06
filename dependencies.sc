@@ -3,6 +3,9 @@ import mill.scalalib._
 /** Command-line args parsing. */
 val scopt = ivy"com.github.scopt::scopt:3.7.0"
 
+/** GUI framework (JavaFX wrapper for Scala). */
+val scalafx = ivy"org.scalafx::scalafx:8.0.144-R12"
+
 /** Audio files tags.*/
 val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"
 
@@ -26,7 +29,7 @@ object logging {
 /** JSON. */
 val playJson = ivy"com.typesafe.play::play-json:2.6.7"
 
-/** Enumeratiopns. */
+/** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"
 
 /** Tests. */

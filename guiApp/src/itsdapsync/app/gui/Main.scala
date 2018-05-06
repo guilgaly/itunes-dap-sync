@@ -29,9 +29,11 @@ object Main extends JFXApp {
 
   private val (sourcePath, sourceLabel, sourceTextField, sourceButton) =
     directorySelectComponents("iTunes library")
+  sourcePath.set(AppPreferences.lastSourcePath)
 
   private val (targetPath, targetLabel, targetTextField, targetButton) =
     directorySelectComponents("target folder")
+  targetPath.set(AppPreferences.lastTargetPath)
 
   private val syncButton = new Button {
     text = "Sync now!"
@@ -196,5 +198,10 @@ object Main extends JFXApp {
                                   field: TextInputControl): Unit = {
     if (prop().isEmpty) field.styleClass.add("error")
     else field.styleClass.remove("error")
+  }
+
+  override def stopApp(): Unit = {
+    AppPreferences.lastSourcePath = sourcePath()
+    AppPreferences.lastTargetPath = targetPath()
   }
 }

@@ -2,13 +2,14 @@ import $file.dependencies
 import $file.settings
 import mill._
 import mill.scalalib._
+import mill.scalalib.scalafmt.ScalafmtModule
 
-trait itsDapSyncModule extends ScalaModule {
+trait itsDapSyncModule extends ScalaModule with ScalafmtModule {
   override def scalaVersion = settings.scalaVersion
   override def scalacOptions = settings.defaultScalacOptions
   override def repositories = super.repositories ++ settings.customRepositories
 
-  object test extends Tests {
+  object test extends Tests with ScalafmtModule {
     override def moduleDeps =
       if (this == common.test) super.moduleDeps
       else super.moduleDeps ++ Seq(common.test)

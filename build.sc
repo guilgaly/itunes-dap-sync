@@ -28,7 +28,11 @@ object cmdLineApp extends itsDapSyncModule {
 object guiApp extends itsDapSyncModule {
   override def moduleDeps = Seq(core)
   override def ivyDeps = Agg(
-    dependencies.scalafx,
+    dependencies.scalafx.core,
+    dependencies.scalafx.fxml,
+  )
+  override def scalacPluginIvyDeps = Agg(
+    dependencies.compilerPlugins.macroParadise,
   )
 }
 

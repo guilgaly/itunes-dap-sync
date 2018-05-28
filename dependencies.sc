@@ -1,10 +1,17 @@
 import mill.scalalib._
 
+object compilerPlugins {
+  val macroParadise = ivy"org.scalamacros:::paradise:2.1.0"
+}
+
 /** Command-line args parsing. */
 val scopt = ivy"com.github.scopt::scopt:3.7.0"
 
 /** GUI framework (JavaFX wrapper for Scala). */
-val scalafx = ivy"org.scalafx::scalafx:8.0.144-R12"
+object scalafx {
+  val core = ivy"org.scalafx::scalafx:8.0.144-R12"
+  val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.4"
+}
 
 /** Audio files tags.*/
 val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"

@@ -34,7 +34,7 @@ object logging {
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.6.7"
+val playJson = ivy"com.typesafe.play::play-json:2.6.9"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"

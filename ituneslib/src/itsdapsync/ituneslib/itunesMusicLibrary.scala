@@ -8,6 +8,7 @@ import itsdapsync.ituneslib.NSObjectConverters._
 
 import scala.collection.immutable
 import scala.util.Try
+import scala.util.control.NonFatal
 
 object ItunesMusicLibrary {
 
@@ -23,8 +24,7 @@ object ItunesMusicLibrary {
    *                Library.itl" file)
    * @return The parsed iTunes library
    */
-  def parseXml(xmlFile: Path): Try[ItunesMusicLibrary] = {
-
+  def parseXml(xmlFile: Path): Try[ItunesMusicLibrary] =
     Try {
       val root = PropertyListParser.parse(xmlFile.toFile).toScalaMap
 
@@ -44,46 +44,68 @@ object ItunesMusicLibrary {
         musicFolder = root("Music Folder").toJavaPath
       )
     }
-  }
 
   private def parseTracks(
       tracks: Map[String, NSObject]): immutable.Seq[ItunesTrack] = {
     val tracksAsMaps = tracks.values.map(_.toScalaMap)
     val filteredTracks =
       tracksAsMaps.filter(_("Track Type").toScalaString == "File")
-    filteredTracks.map(parseTrack).toVector.sortBy(_.trackId)
+    filteredTracks.flatMap(parseTrack).toVector.sortBy(_.trackId)
   }
 
-  private def parseTrack(track: Map[String, NSObject]): ItunesTrack =
-    ItunesTrack(
-      trackId = track("Track ID").toScalaInt,
-      size = track("Size").toScalaInt,
-      totalTime = track("Total Time").toScalaInt,
-      trackNumber = track.get("Track Number").map(_.toScalaInt),
-      trackCount = track.get("Track Count").map(_.toScalaInt),
-      discNumber = track.get("Disc Number").map(_.toScalaInt),
-      discCount = track.get("Disc Count").map(_.toScalaInt),
-      year = track.get("Year").map(_.toScalaInt),
-      dateModified = track("Date Modified").toJavaInstant,
-      dateAdded = track("Date Added").toJavaInstant,
-      bitRate = track("Bit Rate").toScalaInt,
-      sampleRate = track("Sample Rate").toScalaInt,
-      artworkCount = track.get("Artwork Count").map(_.toScalaInt),
-      persistentID = track("Persistent ID").toScalaString,
-      trackType = track("Track Type").toScalaString,
-      fileFolderCount = track("File Folder Count").toScalaInt,
-      libraryFolderCount = track("Library Folder Count").toScalaInt,
-      name = track.get("Name").map(_.toScalaString),
-      artist = track.get("Artist").map(_.toScalaString),
-      album = track.get("Album").map(_.toScalaString),
-      genre = track.get("Genre").map(_.toScalaString),
-      compilation = track.get("Compilation").exists(_.toScalaBoolean),
-      kind = track("Kind").toScalaString,
-      location = track("Location").toJavaPath
-    )
+  private def parseTrack(track: Map[String, NSObject]): Option[ItunesTrack] =
+    try {
+      val isFile = track("Track Type").toScalaString == "File"
+      val isVideo = track.get("Has Video").exists(_.toScalaBoolean)
+
+      if (isFile && !isVideo)
+        Some(
+          ItunesTrack(
+            trackId = track("Track ID").toScalaInt,
+            size = track("Size").toScalaInt,
+            totalTime = track("Total Time").toScalaInt,
+            trackNumber = track.get("Track Number").map(_.toScalaInt),
+            trackCount = track.get("Track Count").map(_.toScalaInt),
+            discNumber = track.get("Disc Number").map(_.toScalaInt),
+            discCount = track.get("Disc Count").map(_.toScalaInt),
+            year = track.get("Year").map(_.toScalaInt),
+            dateModified = track("Date Modified").toJavaInstant,
+            dateAdded = track("Date Added").toJavaInstant,
+            bitRate = track("Bit Rate").toScalaInt,
+            sampleRate = track("Sample Rate").toScalaInt,
+            artworkCount = track.get("Artwork Count").map(_.toScalaInt),
+            persistentID = track("Persistent ID").toScalaString,
+            trackType = track("Track Type").toScalaString,
+            fileFolderCount = track("File Folder Count").toScalaInt,
+            libraryFolderCount = track("Library Folder Count").toScalaInt,
+            name = track.get("Name").map(_.toScalaString),
+            artist = track.get("Artist").map(_.toScalaString),
+            album = track.get("Album").map(_.toScalaString),
+            genre = track.get("Genre").map(_.toScalaString),
+            compilation = track.get("Compilation").exists(_.toScalaBoolean),
+            kind = track("Kind").toScalaString,
+            location = track("Location").toJavaPath
+          ))
+      else
+        None
+    } catch {
+      case NonFatal(e) => throw new ItunesMusicLibraryParseException(track, e)
+    }
 
   private def parsePlaylists(
       playlists: Seq[NSObject]): immutable.Seq[ItunesPlaylist] = Vector()
+
+  class ItunesMusicLibraryParseException(message: String)
+      extends Exception(message) {
+    def this(message: String, cause: Throwable) {
+      this(message)
+      initCause(cause)
+    }
+
+    def this(track: Map[String, NSObject], cause: Throwable) {
+      this(s"Unable to parse tyrack $track", cause)
+    }
+  }
 }
 
 // 'Major Version' = '1' (class com.dd.plist.NSNumber)

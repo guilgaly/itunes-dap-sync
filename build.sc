@@ -1,5 +1,6 @@
 import $file.dependencies
 import $file.settings
+
 import mill._
 import mill.scalalib._
 import mill.scalalib.scalafmt.ScalafmtModule
@@ -28,6 +29,8 @@ object cmdLineApp extends itsDapSyncModule {
 object guiApp extends itsDapSyncModule {
   override def moduleDeps = Seq(core)
   override def ivyDeps = Agg(
+    dependencies.scalafx.jfxFxml,
+    dependencies.scalafx.jfxMedia,
     dependencies.scalafx.core,
     dependencies.scalafx.fxml,
   )

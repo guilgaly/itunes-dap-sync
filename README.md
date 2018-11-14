@@ -6,6 +6,8 @@
 A simple program for syncing the music files contained in your iTunes library to
 a digital audio player (DAP) - or to any target directory.
 
+Requires Java 11.
+
 **Disclaimers:**
 * iTunes is a registered trademark of Apple Inc.
 * This program and its author(s) are not in any way affiliated with Apple Inc.

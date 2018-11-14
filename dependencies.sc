@@ -9,7 +9,7 @@ val scopt = ivy"com.github.scopt::scopt:3.7.0"
 
 /** GUI framework (JavaFX wrapper for Scala). */
 object scalafx {
-  val core = ivy"org.scalafx::scalafx:8.0.144-R12"
+  val core = ivy"org.scalafx::scalafx:8.0.181-R13"
   val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.4"
 }
 
@@ -23,7 +23,7 @@ val vlcj = ivy"uk.co.caprica:vlcj:3.10.1"
 val jave = ivy"it.sauronsoftware:jave:1.0.2"
 
 /** Plist parser. */
-val ddPlist = ivy"com.googlecode.plist:dd-plist:1.20"
+val ddPlist = ivy"com.googlecode.plist:dd-plist:1.21"
 
 /** Logging. */
 object logging {
@@ -34,7 +34,7 @@ object logging {
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.6.9"
+val playJson = ivy"com.typesafe.play::play-json:2.6.10"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"

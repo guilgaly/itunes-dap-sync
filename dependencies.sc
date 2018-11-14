@@ -1,5 +1,19 @@
 import mill.scalalib._
 
+implicit class WithOsClassifier(dep: Dep) {
+  def withOsClassifier =
+    dep.configure(coursier.Attributes(classifier = WithOsClassifier.osName))
+}
+
+object WithOsClassifier {
+  private val osName = System.getProperty("os.name") match {
+    case name if name.startsWith("Linux")   => "linux"
+    case name if name.startsWith("Mac")     => "mac"
+    case name if name.startsWith("Windows") => "win"
+    case _                                  => throw new Exception("Unknown platform")
+  }
+}
+
 object compilerPlugins {
   val macroParadise = ivy"org.scalamacros:::paradise:2.1.0"
 }
@@ -9,7 +23,10 @@ val scopt = ivy"com.github.scopt::scopt:3.7.0"
 
 /** GUI framework (JavaFX wrapper for Scala). */
 object scalafx {
-  val core = ivy"org.scalafx::scalafx:8.0.181-R13"
+  val jfxFxml = ivy"org.openjfx:javafx-fxml:11.0.1".withOsClassifier
+  val jfxMedia = ivy"org.openjfx:javafx-media:11.0.1".withOsClassifier
+
+  val core = ivy"org.scalafx::scalafx:11-R16"
   val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.4"
 }
 

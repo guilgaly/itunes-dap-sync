@@ -7,7 +7,6 @@ import java.time.Instant
 import com.dd.plist._
 
 import scala.collection.JavaConverters._
-import scala.language.implicitConversions
 
 object NSObjectConverters {
 

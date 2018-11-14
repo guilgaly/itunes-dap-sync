@@ -26,6 +26,7 @@ object VlcjEncoder {
       super.onGetDirectoryNames(directoryNames)
       directoryNames.add("/Applications/Media/VLC.app/Contents/MacOS/lib")
       directoryNames.add("/Applications/Video/VLC.app/Contents/MacOS/lib")
+      ()
     }
   }
 

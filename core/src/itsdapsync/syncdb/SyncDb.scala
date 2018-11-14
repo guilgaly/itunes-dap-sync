@@ -3,7 +3,7 @@ package itsdapsync.syncdb
 import java.time.Instant
 import java.util.UUID
 
-import play.api.libs.json.{Format, Json, OFormat}
+import play.api.libs.json.{Json, OFormat}
 
 import scala.collection.immutable.Seq
 

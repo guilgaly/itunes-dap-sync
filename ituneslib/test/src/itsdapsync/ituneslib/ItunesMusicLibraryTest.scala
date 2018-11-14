@@ -102,8 +102,8 @@ class ItunesMusicLibraryTest extends UnitSuite {
 
   // TODO test track with minimal metadata (no ID3 tags)
 
-  def parseAndAssert(expectedLib: ItunesMusicLibrary,
-                     xmlResourcePath: String): Unit = {
+  private def parseAndAssert(expectedLib: ItunesMusicLibrary,
+                             xmlResourcePath: String) = {
     val file = Paths.get(getClass.getResource(xmlResourcePath).toURI)
     ItunesMusicLibrary.parseXml(file) shouldBe Success(expectedLib)
   }

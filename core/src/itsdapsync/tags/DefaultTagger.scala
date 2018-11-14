@@ -9,10 +9,8 @@ import org.jaudiotagger.tag.images.Artwork
 import org.jaudiotagger.tag.mp4.Mp4Tag
 import org.jaudiotagger.tag.reference.ID3V2Version
 import org.jaudiotagger.tag.{FieldKey, Tag, TagOptionSingleton}
-import org.log4s.getLogger
 
 object DefaultTagger extends Tagger {
-  private[this] val logger = getLogger
 
   TagOptionSingleton.getInstance().setPadNumbers(true)
   TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24)

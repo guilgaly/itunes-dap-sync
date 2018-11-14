@@ -40,7 +40,7 @@ class SyncEngine private (config: SyncConfig,
 
     val endSync = Instant.now()
     val newSyncTracks = syncResults.flatMap {
-      case TrackSyncResult.Failure(persisentId, syncTrack, e) =>
+      case TrackSyncResult.Failure(_, syncTrack, e) =>
         logger.error(e)("") // TODO
         syncTrack
       case TrackSyncResult.Success(_, syncTrack) =>

@@ -17,5 +17,6 @@ object SyncDbEngine {
   def writeSyncDb(syncDb: SyncDb, path: Path): Unit = {
     val json = Json.toBytes(Json.toJsObject(syncDb))
     Files.write(path, json)
+    ()
   }
 }

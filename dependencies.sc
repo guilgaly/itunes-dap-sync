@@ -19,7 +19,7 @@ object compilerPlugins {
 }
 
 /** Command-line args parsing. */
-val scopt = ivy"com.github.scopt::scopt:3.7.0"
+val scopt = ivy"com.github.scopt::scopt:3.7.1"
 
 /** GUI framework (JavaFX wrapper for Scala). */
 object scalafx {
@@ -34,7 +34,7 @@ object scalafx {
 val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"
 
 /** Audio files manipulation (transcoding...) with VLC. */
-val vlcj = ivy"uk.co.caprica:vlcj:3.10.1"
+val vlcj = ivy"uk.co.caprica:vlcj:3.11.0"
 
 /** Audio files manipulation (transcoding...) with ffmpeg. */
 val jave = ivy"it.sauronsoftware:jave:1.0.2"
@@ -51,7 +51,7 @@ object logging {
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.6.10"
+val playJson = ivy"com.typesafe.play::play-json:2.6.13"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"

@@ -1,6 +1,6 @@
 import coursier.maven.MavenRepository
 
-val scalaVersion = "2.12.6"
+val scalaVersion = "2.12.8"
 
 val customRepositories = Seq(
   MavenRepository("https://dl.bintray.com/guilgaly/maven"),

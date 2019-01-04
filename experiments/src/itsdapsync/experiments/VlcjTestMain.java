@@ -180,6 +180,11 @@ public class VlcjTestMain {
             }
 
             @Override
+            public void mediaParsedStatus(final MediaPlayer mediaPlayer, final int newStatus) {
+                System.out.println("mediaParsedStatus");
+            }
+
+            @Override
             public void mediaFreed(final MediaPlayer mediaPlayer) {
                 System.out.println("mediaFreed");
             }

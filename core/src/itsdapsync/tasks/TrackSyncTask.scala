@@ -14,7 +14,7 @@ object TrackSyncTask {
   case class Create(
       itunesTrack: ItunesTrack,
       newSyncTrack: SyncTrack,
-      tempPath: Path
+      tempPath: Path,
   ) extends TrackSyncTask {
     require(itunesTrack.persistentID == newSyncTrack.persistentID)
 
@@ -29,7 +29,7 @@ object TrackSyncTask {
       oldSyncTrack: SyncTrack,
       itunesTrack: ItunesTrack,
       newSyncTrack: SyncTrack,
-      tempPath: Path
+      tempPath: Path,
   ) extends TrackSyncTask {
     require(itunesTrack.persistentID == oldSyncTrack.persistentID)
     require(itunesTrack.persistentID == newSyncTrack.persistentID)

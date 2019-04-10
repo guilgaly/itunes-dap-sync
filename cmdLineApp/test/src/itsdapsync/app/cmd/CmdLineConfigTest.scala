@@ -35,8 +35,8 @@ class CmdLineConfigTest extends UnitSpec {
     }
     "given help option with two args" should {
       "return the parsed config" in {
-        CmdLineConfig.parse(Seq("--help", "abc", "def")) shouldBe Some(
-          expectedConfig)
+        CmdLineConfig.parse(Seq("--help", "abc", "def")) shouldBe
+          Some(expectedConfig)
       }
       "print usage message" ignore {
         // TODO

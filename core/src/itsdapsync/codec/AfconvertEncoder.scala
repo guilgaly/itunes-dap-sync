@@ -18,19 +18,21 @@ object AfconvertEncoder extends Encoder {
     val inputPath = sourceFile.toAbsolutePath.toString
     val outputPath = targetFile.toAbsolutePath.toString
 
-    val cmd = Seq("afconvert",
-                  "--file",
-                  fileFormat,
-                  "--data",
-                  dataFormat,
-                  "--bitrate",
-                  bitrate,
-                  "--quality",
-                  codecQuality,
-                  "--strategy",
-                  codecStrategy,
-                  inputPath,
-                  outputPath)
+    val cmd = Seq(
+      "afconvert",
+      "--file",
+      fileFormat,
+      "--data",
+      dataFormat,
+      "--bitrate",
+      bitrate,
+      "--quality",
+      codecQuality,
+      "--strategy",
+      codecStrategy,
+      inputPath,
+      outputPath,
+    )
 
     logger.debug(s"Executing: '${cmd.mkString(" ")}'")
 

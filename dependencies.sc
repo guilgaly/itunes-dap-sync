@@ -23,8 +23,8 @@ val scopt = ivy"com.github.scopt::scopt:3.7.1"
 
 /** GUI framework (JavaFX wrapper for Scala). */
 object scalafx {
-  val jfxFxml = ivy"org.openjfx:javafx-fxml:11.0.1".withOsClassifier
-  val jfxMedia = ivy"org.openjfx:javafx-media:11.0.1".withOsClassifier
+  val jfxFxml = ivy"org.openjfx:javafx-fxml:11.0.2".withOsClassifier
+  val jfxMedia = ivy"org.openjfx:javafx-media:11.0.2".withOsClassifier
 
   val core = ivy"org.scalafx::scalafx:11-R16"
   val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.4"
@@ -34,7 +34,7 @@ object scalafx {
 val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"
 
 /** Audio files manipulation (transcoding...) with VLC. */
-val vlcj = ivy"uk.co.caprica:vlcj:3.11.0"
+val vlcj = ivy"uk.co.caprica:vlcj:4.1.0"
 
 /** Audio files manipulation (transcoding...) with ffmpeg. */
 val jave = ivy"it.sauronsoftware:jave:1.0.2"
@@ -44,17 +44,17 @@ val ddPlist = ivy"com.googlecode.plist:dd-plist:1.21"
 
 /** Logging. */
 object logging {
-  val log4s = ivy"org.log4s::log4s:1.6.1"
-  val slf4jApi = ivy"org.slf4j:slf4j-api:1.7.25"
+  val log4s = ivy"org.log4s::log4s:1.7.0"
+  val slf4jApi = ivy"org.slf4j:slf4j-api:1.7.26"
   // logging to System.err for now
-  val slf4jSimple = ivy"org.slf4j:slf4j-simple:1.7.25"
+  val slf4jSimple = ivy"org.slf4j:slf4j-simple:1.7.26"
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.6.13"
+val playJson = ivy"com.typesafe.play::play-json:2.7.2"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"
 
 /** Tests. */
-val scalatest = ivy"org.scalatest::scalatest:3.0.5"
+val scalatest = ivy"org.scalatest::scalatest:3.0.7"

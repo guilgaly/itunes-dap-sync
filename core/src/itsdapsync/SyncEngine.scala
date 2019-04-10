@@ -20,9 +20,11 @@ object SyncEngine {
     }
 }
 
-class SyncEngine private (config: SyncConfig,
-                          encoder: Encoder,
-                          tagger: Tagger) {
+class SyncEngine private (
+    config: SyncConfig,
+    encoder: Encoder,
+    tagger: Tagger,
+) {
   private[this] val logger = getLogger
 
   def sync(): Unit = {
@@ -80,7 +82,8 @@ class SyncEngine private (config: SyncConfig,
       TrackSyncResult.Failure(
         task.persisentId,
         Some(task.oldSyncTrack),
-        new FileNotFoundException(s" Path ${path.toString} not found"))
+        new FileNotFoundException(s" Path ${path.toString} not found"),
+      )
   }
 
   private def handleReplaceTask(task: TrackSyncTask.Replace) = {
@@ -100,9 +103,11 @@ class SyncEngine private (config: SyncConfig,
         TrackSyncResult.Failure(task.persisentId, Some(task.oldSyncTrack), e)
     }
 
-  private def createTrack(itunesTrack: ItunesTrack,
-                          newSyncTrack: SyncTrack,
-                          tempPath: Path) = Try {
+  private def createTrack(
+      itunesTrack: ItunesTrack,
+      newSyncTrack: SyncTrack,
+      tempPath: Path,
+  ) = Try {
     val sourcePath = itunesTrack.location
     val targetPath = resolveSyncPath(newSyncTrack)
     logger.info(s"Writing track $targetPath")

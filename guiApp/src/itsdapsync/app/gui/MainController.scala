@@ -23,14 +23,15 @@ trait MainControllerInterface {
 }
 
 @sfxml
-class MainController(menuBar: MenuBar,
-                     fileMenu: Menu,
-                     sourcePathTextField: TextField,
-                     sourcePathChoiceButton: Button,
-                     targetPathTextField: TextField,
-                     targetPathChoiceButton: Button,
-                     startSyncButton: Button)
-    extends MainControllerInterface {
+class MainController(
+    menuBar: MenuBar,
+    fileMenu: Menu,
+    sourcePathTextField: TextField,
+    sourcePathChoiceButton: Button,
+    targetPathTextField: TextField,
+    targetPathChoiceButton: Button,
+    startSyncButton: Button,
+) extends MainControllerInterface {
   private[this] val logger = getLogger
 
   adaptMenusToPlatform()
@@ -64,9 +65,11 @@ class MainController(menuBar: MenuBar,
     AppPreferences.lastTargetPath = targetPath()
   }
 
-  private def onChoosePath(path: ObjectProperty[Option[Path]],
-                           pathTextField: TextField,
-                           name: String): Unit = {
+  private def onChoosePath(
+      path: ObjectProperty[Option[Path]],
+      pathTextField: TextField,
+      name: String,
+  ): Unit = {
     val dirChooser = new DirectoryChooser {
       title = s"Pick a folder for the $name"
       initialDirectory = path.value match {
@@ -109,8 +112,10 @@ class MainController(menuBar: MenuBar,
     syncing.set(false)
   }
 
-  private def showMissingField[T](prop: ObjectProperty[Option[T]],
-                                  field: TextInputControl): Unit = {
+  private def showMissingField[T](
+      prop: ObjectProperty[Option[T]],
+      field: TextInputControl,
+  ): Unit = {
     if (prop().isEmpty) {
       field.styleClass.add("error")
     } else {
@@ -123,7 +128,7 @@ class MainController(menuBar: MenuBar,
     val path = ObjectProperty(defaultPath)
     pathTextField.text <== Bindings.createStringBinding(
       () => path.value.map(_.toString).getOrElse(""),
-      path
+      path,
     )
     path
   }
@@ -134,7 +139,7 @@ class MainController(menuBar: MenuBar,
         text = "Quit"
         accelerator = new KeyCodeCombination(
           KeyCode.Q,
-          KeyCombination.ShortcutDown
+          KeyCombination.ShortcutDown,
         )
         onAction = _ => JFXPlatform.exit()
       }

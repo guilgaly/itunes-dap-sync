@@ -1,75 +1,47 @@
 package itsdapsync.codec
 
 import java.nio.file.Path
-import java.util
 
-import itsdapsync.codec.VlcjEncoder._
-import uk.co.caprica.vlcj.discovery.NativeDiscovery
-import uk.co.caprica.vlcj.discovery.linux.DefaultLinuxNativeDiscoveryStrategy
-import uk.co.caprica.vlcj.discovery.mac.DefaultMacNativeDiscoveryStrategy
-import uk.co.caprica.vlcj.discovery.windows.DefaultWindowsNativeDiscoveryStrategy
-import uk.co.caprica.vlcj.player.{
-  MediaPlayer,
-  MediaPlayerEventAdapter,
-  MediaPlayerFactory
-}
+import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
+import uk.co.caprica.vlcj.player.component.AudioPlayerComponent
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Promise}
 import scala.util.{Failure, Try}
 
-object VlcjEncoder {
-  private class ImprovedMacNativeDiscoveryStrategy
-      extends DefaultMacNativeDiscoveryStrategy {
-    override def onGetDirectoryNames(
-        directoryNames: util.List[String]): Unit = {
-      super.onGetDirectoryNames(directoryNames)
-      directoryNames.add("/Applications/Media/VLC.app/Contents/MacOS/lib")
-      directoryNames.add("/Applications/Video/VLC.app/Contents/MacOS/lib")
-      ()
-    }
-  }
-
-  private def nativeDiscovery =
-    new NativeDiscovery(new ImprovedMacNativeDiscoveryStrategy,
-                        new DefaultLinuxNativeDiscoveryStrategy,
-                        new DefaultWindowsNativeDiscoveryStrategy)
-}
-
 class VlcjEncoder extends Encoder {
 
-  if (!nativeDiscovery.discover()) {
-    throw new IllegalStateException("failed to discover native VLC library")
-  }
-
-  private[this] val playerFactory = new MediaPlayerFactory
-
   override def transcode(sourceFile: Path, targetFile: Path): Unit = {
-    val player = playerFactory.newHeadlessMediaPlayer
+    val playerComponent = new AudioPlayerComponent()
+    val player = playerComponent.mediaPlayer()
 
     val resultP = Promise[Unit]()
-    player.addMediaPlayerEventListener(new MediaPlayerEventAdapter {
-      override def finished(mediaPlayer: MediaPlayer): Unit = {
-        println("finished")
-        resultP.complete(Try {})
-      }
+    player
+      .events()
+      .addMediaPlayerEventListener(new MediaPlayerEventAdapter {
+        override def finished(mediaPlayer: MediaPlayer): Unit = {
+          println("finished")
+          resultP.complete(Try {})
+        }
 
-      override def error(mediaPlayer: MediaPlayer): Unit = {
-        println("error")
-        resultP.failure(new Exception("Transcoding failed"))
-      }
-    })
+        override def error(mediaPlayer: MediaPlayer): Unit = {
+          println("error")
+          resultP.failure(new Exception("Transcoding failed"))
+        }
+      })
 
     val transcodeOpts =
       s""":sout=#transcode{acodec=vorb,vcodec=dummy}:std{dst="${targetFile.toAbsolutePath}",mux=ogg,access=file}"""
 
-    player.playMedia(
-      sourceFile.toAbsolutePath.toString,
-      "-I dummy",
-      "--sout-vorbis-quality=5",
-      transcodeOpts,
-      "vlc://quit"
-    )
+    player
+      .media()
+      .play(
+        sourceFile.toAbsolutePath.toString,
+        "-I dummy",
+        "--sout-vorbis-quality=5",
+        transcodeOpts,
+        "vlc://quit",
+      )
 
     val result = Await.ready(resultP.future, Duration.Inf)
     result.value match {
@@ -78,10 +50,10 @@ class VlcjEncoder extends Encoder {
       case _ => ()
     }
     player.release()
+    playerComponent.release()
   }
 
   override def close(): Unit = {
     println("releasing component")
-    playerFactory.release()
   }
 }

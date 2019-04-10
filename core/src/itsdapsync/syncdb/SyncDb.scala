@@ -15,7 +15,7 @@ object SyncDb {
   val empty = SyncDb(
     UUID.randomUUID(),
     lastSync = LastSync(Instant.EPOCH, Instant.EPOCH),
-    Seq.empty
+    Seq.empty,
   )
 
   implicit val format: OFormat[SyncDb] = Json.format

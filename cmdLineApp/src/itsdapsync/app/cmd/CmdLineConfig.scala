@@ -14,14 +14,19 @@ object CmdLineConfig {
 
     arg[File]("<iTunes directory>")
       .text(
-        "iTunes' home directory, where iTunes stores media files and metadata (typically '~/Music/iTunes' or '%userprofile%\\Music\\iTunes')")
-      .action((file: File, config: CmdLineConfig) =>
-        config.copy(itunesDirectory = file.toPath))
+        "iTunes' home directory, where iTunes stores media files and metadata (typically '~/Music/iTunes' or '%userprofile%\\Music\\iTunes')",
+      )
+      .action(
+        (file: File, config: CmdLineConfig) =>
+          config.copy(itunesDirectory = file.toPath),
+      )
 
     arg[File]("<target directory>")
       .text("The target directory, where music files will be copied")
-      .action((file: File, config: CmdLineConfig) =>
-        config.copy(targetDirectory = file.toPath))
+      .action(
+        (file: File, config: CmdLineConfig) =>
+          config.copy(targetDirectory = file.toPath),
+      )
 
     // Override terminate to exit normaly (returning None) when help or version
     // is invoked

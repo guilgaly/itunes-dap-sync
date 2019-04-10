@@ -21,14 +21,15 @@ class ItunesMusicLibraryTest extends UnitSuite {
       libraryPersistentId = "AD42EFF3B3C9F82E",
       tracks = List(),
       playlists = List(),
-      musicFolder = Paths.get("/Volumes/Data/Music/iTunes/iTunes Media")
+      musicFolder = Paths.get("/Volumes/Data/Music/iTunes/iTunes Media"),
     )
 
     parseAndAssert(expectedLib, actualLib)
   }
 
   test(
-    "2 - Basic iTunes library (with two tracks, created by iTunes 12.5.4.42)") {
+    "2 - Basic iTunes library (with two tracks, created by iTunes 12.5.4.42)",
+  ) {
     val actualLib = "itslib_2_(basic).xml"
     val expectedLib = ItunesMusicLibrary(
       majorVersion = 1,
@@ -64,7 +65,8 @@ class ItunesMusicLibraryTest extends UnitSuite {
           compilation = false,
           kind = "Fichier audio MPEG",
           location = Paths.get(
-            "/Volumes/Data/Music/iTunes/iTunes Media/Music/Iron Maiden/The Number of the Beast/05 The Number of the Beast.mp3")
+            "/Volumes/Data/Music/iTunes/iTunes Media/Music/Iron Maiden/The Number of the Beast/05 The Number of the Beast.mp3",
+          ),
         ),
         ItunesTrack(
           trackId = 198,
@@ -91,19 +93,22 @@ class ItunesMusicLibraryTest extends UnitSuite {
           compilation = false,
           kind = "Fichier audio MPEG",
           location = Paths.get(
-            "/Volumes/Data/Music/iTunes/iTunes Media/Music/Punish Yourself/Pink Panther Party/02 Shiva Only Is God.mp3")
-        )
+            "/Volumes/Data/Music/iTunes/iTunes Media/Music/Punish Yourself/Pink Panther Party/02 Shiva Only Is God.mp3",
+          ),
+        ),
       ),
       playlists = List(),
-      musicFolder = Paths.get("/Volumes/Data/Music/iTunes/iTunes Media")
+      musicFolder = Paths.get("/Volumes/Data/Music/iTunes/iTunes Media"),
     )
     parseAndAssert(expectedLib, actualLib)
   }
 
   // TODO test track with minimal metadata (no ID3 tags)
 
-  private def parseAndAssert(expectedLib: ItunesMusicLibrary,
-                             xmlResourcePath: String) = {
+  private def parseAndAssert(
+      expectedLib: ItunesMusicLibrary,
+      xmlResourcePath: String,
+  ) = {
     val file = Paths.get(getClass.getResource(xmlResourcePath).toURI)
     ItunesMusicLibrary.parseXml(file) shouldBe Success(expectedLib)
   }

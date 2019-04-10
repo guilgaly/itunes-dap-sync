@@ -41,12 +41,13 @@ object ItunesMusicLibrary {
         libraryPersistentId = root("Library Persistent ID").toScalaString,
         tracks = parsedTracks,
         playlists = parsedPlaylists,
-        musicFolder = root("Music Folder").toJavaPath
+        musicFolder = root("Music Folder").toJavaPath,
       )
     }
 
   private def parseTracks(
-      tracks: Map[String, NSObject]): immutable.Seq[ItunesTrack] = {
+      tracks: Map[String, NSObject],
+  ): immutable.Seq[ItunesTrack] = {
     val tracksAsMaps = tracks.values.map(_.toScalaMap)
     val filteredTracks =
       tracksAsMaps.filter(_("Track Type").toScalaString == "File")
@@ -84,8 +85,9 @@ object ItunesMusicLibrary {
             genre = track.get("Genre").map(_.toScalaString),
             compilation = track.get("Compilation").exists(_.toScalaBoolean),
             kind = track("Kind").toScalaString,
-            location = track("Location").toJavaPath
-          ))
+            location = track("Location").toJavaPath,
+          ),
+        )
       else
         None
     } catch {
@@ -93,17 +95,18 @@ object ItunesMusicLibrary {
     }
 
   private def parsePlaylists(
-      playlists: Seq[NSObject]): immutable.Seq[ItunesPlaylist] = Vector()
+      playlists: Seq[NSObject],
+  ): immutable.Seq[ItunesPlaylist] = Vector()
 
   class ItunesMusicLibraryParseException(message: String)
       extends Exception(message) {
     def this(message: String, cause: Throwable) {
       this(message)
-      initCause(cause)
+      initCause(cause),
     }
 
     def this(track: Map[String, NSObject], cause: Throwable) {
-      this(s"Unable to parse tyrack $track", cause)
+      this(s"Unable to parse tyrack $track", cause),
     }
   }
 }
@@ -129,7 +132,7 @@ case class ItunesMusicLibrary(
     libraryPersistentId: String,
     tracks: immutable.Seq[ItunesTrack],
     playlists: immutable.Seq[ItunesPlaylist],
-    musicFolder: Path
+    musicFolder: Path,
 )
 
 // 'Track ID' = '1731' (class com.dd.plist.NSNumber)
@@ -178,7 +181,7 @@ case class ItunesTrack(
     genre: Option[String],
     compilation: Boolean,
     kind: String,
-    location: Path
+    location: Path,
 )
 
 // TODO parse playlists in the iTunes library

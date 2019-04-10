@@ -17,12 +17,14 @@ import scala.util.Try
  * @param targetSyncFile The path to the file listing already sync'ed files on
  *                       the target.
  */
-case class SyncConfig(itunesDirectory: Path,
-                      targetDirectory: Path,
-                      tempDirectory: Path,
-                      itunesBinaryLibrary: Path,
-                      itunesXmlLibrary: Path,
-                      targetSyncFile: Path) {
+case class SyncConfig(
+    itunesDirectory: Path,
+    targetDirectory: Path,
+    tempDirectory: Path,
+    itunesBinaryLibrary: Path,
+    itunesXmlLibrary: Path,
+    targetSyncFile: Path,
+) {
 
   override def toString: String =
     s"${getClass.getSimpleName}($itunesDirectory, $targetDirectory, $tempDirectory)"
@@ -41,12 +43,14 @@ object SyncConfig {
     val targetSyncFile: Path = config.targetDirectory.resolve("itsdapsync.json")
     // TODO checks for targetSyncFile
 
-    SyncConfig(config.itunesDirectory,
-               config.targetDirectory,
-               tempDirectory,
-               itunesBinaryLibrary,
-               itunesXmlLibrary,
-               targetSyncFile)
+    SyncConfig(
+      config.itunesDirectory,
+      config.targetDirectory,
+      tempDirectory,
+      itunesBinaryLibrary,
+      itunesXmlLibrary,
+      targetSyncFile,
+    )
   }
 
   trait Input {

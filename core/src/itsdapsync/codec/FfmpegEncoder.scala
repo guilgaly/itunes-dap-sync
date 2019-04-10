@@ -6,7 +6,7 @@ import it.sauronsoftware.jave
 import it.sauronsoftware.jave.{
   AudioAttributes,
   EncodingAttributes,
-  FFMPEGLocator
+  FFMPEGLocator,
 }
 
 object FfmpegEncoder {

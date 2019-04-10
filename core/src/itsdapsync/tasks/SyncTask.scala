@@ -11,9 +11,11 @@ case class SyncTask(tracks: Seq[TrackSyncTask])
 
 object SyncTask {
 
-  def newTask(itunesLibrary: ItunesMusicLibrary,
-              oldSyncDb: SyncDb,
-              config: SyncConfig): SyncTask = {
+  def newTask(
+      itunesLibrary: ItunesMusicLibrary,
+      oldSyncDb: SyncDb,
+      config: SyncConfig,
+  ): SyncTask = {
 
     def resolveTargetPath(track: ItunesTrack) = {
       def genreDir = track.genre.getOrElse("Unknown Genre")
@@ -43,7 +45,8 @@ object SyncTask {
 
     def resolveTempPath(track: ItunesTrack) =
       config.tempDirectory.resolve(
-        normalizeFileName(s"${track.persistentID}.m4a"))
+        normalizeFileName(s"${track.persistentID}.m4a"),
+      )
 
     val deleteOnlytasks = {
       val itunesIds = itunesLibrary.tracks.map(_.persistentID).toSet

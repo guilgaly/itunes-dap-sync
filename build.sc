@@ -1,16 +1,26 @@
 import $file.dependencies
 import $file.settings
-
 import mill._
 import mill.scalalib._
 import mill.scalalib.scalafmt.ScalafmtModule
 
-trait itsDapSyncModule extends ScalaModule with ScalafmtModule {
+trait FormattedScalaModule extends ScalaModule with ScalafmtModule {
+  // We need to override this (not just 'scalafmtVersion') because the group ID has changed
+  override def scalafmtDeps: T[Agg[PathRef]] = T {
+    Lib.resolveDependencies(
+      zincWorker.repositories,
+      Lib.depToDependency(_, "2.12.8"),
+      Seq(ivy"org.scalameta::scalafmt-cli:2.0.0-RC5"),
+    )
+  }
+}
+
+trait itsDapSyncModule extends FormattedScalaModule {
   override def scalaVersion = settings.scalaVersion
   override def scalacOptions = settings.defaultScalacOptions
   override def repositories = super.repositories ++ settings.customRepositories
 
-  object test extends Tests with ScalafmtModule {
+  object test extends Tests with FormattedScalaModule {
     override def moduleDeps =
       if (this == common.test) super.moduleDeps
       else super.moduleDeps ++ Seq(common.test)

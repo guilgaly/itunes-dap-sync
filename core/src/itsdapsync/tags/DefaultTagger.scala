@@ -56,19 +56,27 @@ object DefaultTagger extends Tagger {
     (tag, Option(artwork))
   }
 
-  private def updateTag(tag: Tag,
-                        artwork: Option[Artwork],
-                        itunesTrack: ItunesTrack): Unit = {
+  private def updateTag(
+      tag: Tag,
+      artwork: Option[Artwork],
+      itunesTrack: ItunesTrack,
+  ): Unit = {
     itunesTrack.name.foreach(tag.setField(FieldKey.TITLE, _))
-    itunesTrack.trackNumber.foreach(x =>
-      tag.setField(FieldKey.TRACK, x.toString))
-    itunesTrack.trackCount.foreach(x =>
-      tag.setField(FieldKey.TRACK_TOTAL, x.toString))
-    itunesTrack.discNumber.foreach(x =>
-      tag.setField(FieldKey.DISC_NO, x.toString))
-    itunesTrack.discCount.foreach(x =>
-      tag.setField(FieldKey.DISC_TOTAL, x.toString))
-    itunesTrack.year.foreach(x => tag.setField(FieldKey.YEAR, x.toString))
+    itunesTrack.trackNumber.foreach { x =>
+      tag.setField(FieldKey.TRACK, x.toString)
+    }
+    itunesTrack.trackCount.foreach { x =>
+      tag.setField(FieldKey.TRACK_TOTAL, x.toString)
+    }
+    itunesTrack.discNumber.foreach { x =>
+      tag.setField(FieldKey.DISC_NO, x.toString)
+    }
+    itunesTrack.discCount.foreach { x =>
+      tag.setField(FieldKey.DISC_TOTAL, x.toString)
+    }
+    itunesTrack.year.foreach { x =>
+      tag.setField(FieldKey.YEAR, x.toString)
+    }
     itunesTrack.artist.foreach(tag.setField(FieldKey.ARTIST, _))
     itunesTrack.album.foreach(tag.setField(FieldKey.ALBUM, _))
     itunesTrack.genre.foreach(tag.setField(FieldKey.GENRE, _))

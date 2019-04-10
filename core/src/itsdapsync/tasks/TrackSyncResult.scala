@@ -12,8 +12,9 @@ object TrackSyncResult {
   case class Success(persisentId: String, syncTrack: Option[SyncTrack])
       extends TrackSyncResult
 
-  case class Failure(persisentId: String,
-                     syncTrack: Option[SyncTrack],
-                     error: Throwable)
-      extends TrackSyncResult
+  case class Failure(
+      persisentId: String,
+      syncTrack: Option[SyncTrack],
+      error: Throwable,
+  ) extends TrackSyncResult
 }

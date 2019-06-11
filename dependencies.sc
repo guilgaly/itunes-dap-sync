@@ -2,7 +2,11 @@ import mill.scalalib._
 
 implicit class WithOsClassifier(dep: Dep) {
   def withOsClassifier =
-    dep.configure(coursier.Attributes(classifier = WithOsClassifier.osName))
+    dep.configure(
+      coursier.Attributes(
+        classifier = coursier.Classifier(WithOsClassifier.osName),
+      ),
+    )
 }
 
 object WithOsClassifier {
@@ -44,17 +48,17 @@ val ddPlist = ivy"com.googlecode.plist:dd-plist:1.21"
 
 /** Logging. */
 object logging {
-  val log4s = ivy"org.log4s::log4s:1.7.0"
+  val log4s = ivy"org.log4s::log4s:1.8.2"
   val slf4jApi = ivy"org.slf4j:slf4j-api:1.7.26"
   // logging to System.err for now
   val slf4jSimple = ivy"org.slf4j:slf4j-simple:1.7.26"
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.7.2"
+val playJson = ivy"com.typesafe.play::play-json:2.7.3"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"
 
 /** Tests. */
-val scalatest = ivy"org.scalatest::scalatest:3.0.7"
+val scalatest = ivy"org.scalatest::scalatest:3.0.8"

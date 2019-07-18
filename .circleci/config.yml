@@ -3,7 +3,7 @@ version: 2.1
 executors:
   openjdk:
     docker:
-      - image: guilgaly/openjdk-mill-node-heroku:11.0.3-0.4.0-stretch
+      - image: circleci/openjdk:11.0.4-jdk-stretch-node
     working_directory: /tmp/itunes-dap-sync
     environment:
       JVM_OPTS: -Xmx2g
@@ -18,7 +18,6 @@ jobs:
           keys:
             - v1-coursier-{{ checksum "dependencies.sc" }}
             - v1-coursier-
-      - run: ./.circleci/1.sh
       - run: ./.circleci/build.sh
       - save_cache:
           key: v1-coursier-{{ checksum "dependencies.sc" }}

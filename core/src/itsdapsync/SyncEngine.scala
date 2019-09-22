@@ -4,13 +4,14 @@ import java.io.FileNotFoundException
 import java.nio.file.{Files, Path}
 import java.time.Instant
 
-import itsdapsync.codec.{AfconvertEncoder, Encoder, XldEncoder}
+import itsdapsync.codec.{AfconvertEncoder, Encoder}
 import itsdapsync.ituneslib.{ItunesMusicLibrary, ItunesTrack}
 import itsdapsync.syncdb.{LastSync, SyncDb, SyncDbEngine, SyncTrack}
 import itsdapsync.tags.{DefaultTagger, Tagger}
 import itsdapsync.tasks.{SyncTask, TrackSyncResult, TrackSyncTask}
 import org.log4s.getLogger
 
+import scala.collection.parallel.CollectionConverters._
 import scala.util.{Failure, Success, Try}
 
 object SyncEngine {

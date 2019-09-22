@@ -33,14 +33,12 @@ object guiApp extends itsDapSyncModule {
     dependencies.scalafx.core,
     dependencies.scalafx.fxml,
   )
-  override def scalacPluginIvyDeps = Agg(
-    dependencies.compilerPlugins.macroParadise,
-  )
 }
 
 object core extends itsDapSyncModule {
   override def moduleDeps = Seq(ituneslib)
   override def ivyDeps = Agg(
+    dependencies.scalaModules.parallelCollections,
     dependencies.jaudiotagger,
     dependencies.vlcj,
     dependencies.jave,

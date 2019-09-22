@@ -18,8 +18,9 @@ object WithOsClassifier {
   }
 }
 
-object compilerPlugins {
-  val macroParadise = ivy"org.scalamacros:::paradise:2.1.0"
+/** Scala standard modules (additions to the standard library). */
+object scalaModules {
+  val parallelCollections = ivy"org.scala-lang.modules::scala-parallel-collections:0.2.0"
 }
 
 /** Command-line args parsing. */
@@ -27,35 +28,37 @@ val scopt = ivy"com.github.scopt::scopt:3.7.1"
 
 /** GUI framework (JavaFX wrapper for Scala). */
 object scalafx {
-  val jfxFxml = ivy"org.openjfx:javafx-fxml:11.0.2".withOsClassifier
-  val jfxMedia = ivy"org.openjfx:javafx-media:11.0.2".withOsClassifier
+  private val javaFxVersion = "12.0.2"
+  val jfxFxml = ivy"org.openjfx:javafx-fxml:${javaFxVersion}".withOsClassifier
+  val jfxMedia = ivy"org.openjfx:javafx-media:${javaFxVersion}".withOsClassifier
 
-  val core = ivy"org.scalafx::scalafx:11-R16"
-  val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.4"
+  val core = ivy"org.scalafx::scalafx:12.0.2-R18"
+  val fxml = ivy"org.scalafx::scalafxml-core-sfx8:0.5"
 }
 
 /** Audio files tags.*/
 val jaudiotagger = ivy"net.jthink:jaudiotagger:2.2.5"
 
 /** Audio files manipulation (transcoding...) with VLC. */
-val vlcj = ivy"uk.co.caprica:vlcj:4.1.0"
+val vlcj = ivy"uk.co.caprica:vlcj:4.2.0"
 
 /** Audio files manipulation (transcoding...) with ffmpeg. */
 val jave = ivy"it.sauronsoftware:jave:1.0.2"
 
 /** Plist parser. */
-val ddPlist = ivy"com.googlecode.plist:dd-plist:1.21"
+val ddPlist = ivy"com.googlecode.plist:dd-plist:1.22"
 
 /** Logging. */
 object logging {
+  private val slf4jVersion = "1.7.28"
+  val slf4jApi = ivy"org.slf4j:slf4j-api:${slf4jVersion}"
+  val slf4jSimple = ivy"org.slf4j:slf4j-simple:${slf4jVersion}" // logging to System.err for now
+
   val log4s = ivy"org.log4s::log4s:1.8.2"
-  val slf4jApi = ivy"org.slf4j:slf4j-api:1.7.26"
-  // logging to System.err for now
-  val slf4jSimple = ivy"org.slf4j:slf4j-simple:1.7.26"
 }
 
 /** JSON. */
-val playJson = ivy"com.typesafe.play::play-json:2.7.3"
+val playJson = ivy"com.typesafe.play::play-json:2.7.4"
 
 /** Enumerations. */
 val enumeratum = ivy"com.beachape::enumeratum:1.5.13"

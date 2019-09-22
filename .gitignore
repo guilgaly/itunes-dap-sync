@@ -6,3 +6,6 @@ hs_err_pid*
 
 # Project specific
 *.log
+
+# JDK version to use
+!/.java-version

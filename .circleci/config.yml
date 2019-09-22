@@ -3,7 +3,7 @@ version: 2.1
 executors:
   openjdk:
     docker:
-      - image: circleci/openjdk:11.0.4-jdk-stretch-node
+      - image: guilgaly/openjdk-mill-node-heroku:12.0.2-0.5.0
     working_directory: /tmp/itunes-dap-sync
     environment:
       JVM_OPTS: -Xmx2g

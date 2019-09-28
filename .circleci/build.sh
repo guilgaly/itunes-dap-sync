@@ -3,7 +3,7 @@
 set -e
 
 echo "[INFO] Check the source format"
-./mill __.reformat
+mill __.reformat
 git diff --exit-code || (cat >> /dev/stderr <<EOF
 [ERROR] Scalafmt check failed, see differences above.
 To fix, format your sources using 'mill __.reformat'.
@@ -12,4 +12,4 @@ false
 )
 
 echo "[INFO] Running tests and packaging executable JAR"
-./mill _.test
+mill _.test

@@ -10,7 +10,6 @@ import it.sauronsoftware.jave.{
 }
 
 object FfmpegEncoder {
-
   def transcode(sourceFile: Path, targetFile: Path): Unit = {
     val encoder = new jave.Encoder(locator)
     encoder.encode(sourceFile.toFile, targetFile.toFile, encodingAttributes)

@@ -10,7 +10,6 @@ sealed trait TrackSyncTask {
 }
 
 object TrackSyncTask {
-
   case class Create(
       itunesTrack: ItunesTrack,
       newSyncTrack: SyncTrack,

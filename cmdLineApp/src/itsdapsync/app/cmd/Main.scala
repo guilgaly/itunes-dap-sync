@@ -4,7 +4,6 @@ import itsdapsync.SyncEngine
 import org.log4s._
 
 object Main extends App {
-
   private[this] val logger = getLogger
 
   CmdLineConfig.parse(args) match {

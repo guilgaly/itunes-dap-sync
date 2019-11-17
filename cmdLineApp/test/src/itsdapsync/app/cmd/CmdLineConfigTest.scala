@@ -5,7 +5,6 @@ import java.nio.file.Paths
 import itsdapsync.testutils.UnitSpec
 
 class CmdLineConfigTest extends UnitSpec {
-
   private val expectedConfig = CmdLineConfig(Paths.get("abc"), Paths.get("def"))
 
   "The config args parser" when {

@@ -5,7 +5,6 @@ import java.nio.file.{Files, Path}
 import play.api.libs.json.Json
 
 object SyncDbEngine {
-
   def readSyncDb(path: Path): SyncDb =
     if (Files.exists(path)) {
       val bytes = Files.readAllBytes(path)

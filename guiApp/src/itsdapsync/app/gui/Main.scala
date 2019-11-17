@@ -7,7 +7,6 @@ import scalafx.scene.Scene
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 
 object Main extends JFXApp {
-
   private val loader =
     new FXMLLoader(getClass.getResource("main.fxml"), NoDependencyResolver)
 

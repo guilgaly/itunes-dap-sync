@@ -21,6 +21,5 @@ class CleanEngine(config: CleanConfig) {
   def clean(): Unit = {
     val startClean = Instant.now()
     val oldSyncDb = SyncDbEngine.readSyncDb(config.targetSyncFile)
-
   }
 }

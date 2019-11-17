@@ -25,7 +25,6 @@ case class SyncConfig(
     itunesXmlLibrary: Path,
     targetSyncFile: Path,
 ) {
-
   override def toString: String =
     s"${getClass.getSimpleName}($itunesDirectory, $targetDirectory, $tempDirectory)"
 }

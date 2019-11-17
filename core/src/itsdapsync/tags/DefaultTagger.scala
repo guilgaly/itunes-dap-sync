@@ -11,7 +11,6 @@ import org.jaudiotagger.tag.reference.ID3V2Version
 import org.jaudiotagger.tag.{FieldKey, Tag, TagOptionSingleton}
 
 object DefaultTagger extends Tagger {
-
   TagOptionSingleton.getInstance().setPadNumbers(true)
   TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24)
 

@@ -46,11 +46,11 @@ val vlcj = ivy"uk.co.caprica:vlcj:4.2.0"
 val jave = ivy"it.sauronsoftware:jave:1.0.2"
 
 /** Plist parser. */
-val ddPlist = ivy"com.googlecode.plist:dd-plist:1.22"
+val ddPlist = ivy"com.googlecode.plist:dd-plist:1.23"
 
 /** Logging. */
 object logging {
-  private val slf4jVersion = "1.7.28"
+  private val slf4jVersion = "1.7.29"
   val slf4jApi = ivy"org.slf4j:slf4j-api:${slf4jVersion}"
   val slf4jSimple = ivy"org.slf4j:slf4j-simple:${slf4jVersion}" // logging to System.err for now
 

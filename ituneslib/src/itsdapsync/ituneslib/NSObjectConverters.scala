@@ -9,7 +9,6 @@ import com.dd.plist._
 import scala.collection.JavaConverters._
 
 object NSObjectConverters {
-
   /**
    * Unsafe conversions (will throw [[java.lang.ClassCastException]]s when
    * attempting invalid conversions).

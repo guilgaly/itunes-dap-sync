@@ -10,7 +10,6 @@ import scala.concurrent.{Await, Promise}
 import scala.util.{Failure, Try}
 
 class VlcjEncoder extends Encoder {
-
   override def transcode(sourceFile: Path, targetFile: Path): Unit = {
     val playerComponent = new AudioPlayerComponent()
     val player = playerComponent.mediaPlayer()

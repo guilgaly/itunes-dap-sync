@@ -6,7 +6,6 @@ import java.nio.file.Files
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag
 object Main2 extends App {
-
   val root = new File("/Volumes/SSD_USB/Music")
   recurs(root)
 
@@ -33,7 +32,6 @@ object Main2 extends App {
           Files.write(imageFile.toPath, artwork.getBinaryData)
         }
       }
-
     } else {
       val children = folder.listFiles(_.isDirectory)
       for (child <- children) {
@@ -41,5 +39,4 @@ object Main2 extends App {
       }
     }
   }
-
 }

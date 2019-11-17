@@ -10,13 +10,11 @@ import scala.collection.immutable.Seq
 case class SyncTask(tracks: Seq[TrackSyncTask])
 
 object SyncTask {
-
   def newTask(
       itunesLibrary: ItunesMusicLibrary,
       oldSyncDb: SyncDb,
       config: SyncConfig,
   ): SyncTask = {
-
     def resolveTargetPath(track: ItunesTrack) = {
       def genreDir = track.genre.getOrElse("Unknown Genre")
       def artistDir = {

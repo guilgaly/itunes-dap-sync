@@ -4,7 +4,6 @@ import java.nio.file.{Path, Paths}
 import java.util.prefs.Preferences
 
 object AppPreferences {
-
   private lazy val prefs = Preferences.userRoot.node("itsdapsync.app.gui")
 
   private val lastSourcePathKey = "lastSourcePath"

@@ -29,7 +29,6 @@ class SyncEngine private (
   private[this] val logger = getLogger
 
   def sync(): Unit = {
-
     logger.info(s"running with config: $config")
 
     val startSync = Instant.now()

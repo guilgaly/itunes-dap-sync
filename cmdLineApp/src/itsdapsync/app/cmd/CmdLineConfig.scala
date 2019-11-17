@@ -46,7 +46,6 @@ object CmdLineConfig {
 /** The configuration used for running the program. */
 case class CmdLineConfig(itunesDirectory: Path, targetDirectory: Path)
     extends SyncConfig.Input {
-
   /** No-args constructor used only for the scopt parser. */
   private def this() = this(Paths.get("."), Paths.get("."))
 }

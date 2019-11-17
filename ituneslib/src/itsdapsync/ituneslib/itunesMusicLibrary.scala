@@ -11,7 +11,6 @@ import scala.util.Try
 import scala.util.control.NonFatal
 
 object ItunesMusicLibrary {
-
   /**
    * Parses the "iTunes Library.xml" file to an instance of
    * [[ItunesMusicLibrary]].

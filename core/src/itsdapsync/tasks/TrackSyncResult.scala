@@ -8,7 +8,6 @@ sealed trait TrackSyncResult {
 }
 
 object TrackSyncResult {
-
   case class Success(persisentId: String, syncTrack: Option[SyncTrack])
       extends TrackSyncResult
 

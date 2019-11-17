@@ -8,7 +8,6 @@ import itsdapsync.testutils.UnitSuite
 import scala.util.Success
 
 class ItunesMusicLibraryTest extends UnitSuite {
-
   test("1 - Empty iTunes library (new library, created by iTunes 12.5.4.42)") {
     val actualLib = "itslib_1_empty_(newly_created).xml"
     val expectedLib = ItunesMusicLibrary(
